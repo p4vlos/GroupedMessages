@@ -51,13 +51,15 @@ class ChatMessageCell: UITableViewCell {
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
         
         //lets setup some constraints for our label
-        let constraints = [messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: 32),
-        messageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32),
-        messageLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 250),
-        bubbleBackgroundView.topAnchor.constraint(equalTo: messageLabel.topAnchor, constant: -16),
-        bubbleBackgroundView.leadingAnchor.constraint(equalTo: messageLabel.leadingAnchor, constant: -16),
-        bubbleBackgroundView.bottomAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 16),
-        bubbleBackgroundView.trailingAnchor.constraint(equalTo: messageLabel.trailingAnchor, constant: 16),]
+        let constraints = [
+            messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            messageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32),
+            messageLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 250),
+            bubbleBackgroundView.topAnchor.constraint(equalTo: messageLabel.topAnchor, constant: -16),
+            bubbleBackgroundView.leadingAnchor.constraint(equalTo: messageLabel.leadingAnchor, constant: -16),
+            bubbleBackgroundView.bottomAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 16),
+            bubbleBackgroundView.trailingAnchor.constraint(equalTo: messageLabel.trailingAnchor, constant: 16),
+        ]
         
         NSLayoutConstraint.activate(constraints)
         
