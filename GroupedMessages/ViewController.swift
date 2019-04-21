@@ -36,6 +36,14 @@ class ViewController: UITableViewController {
         tableView.backgroundColor = UIColor(white: 0.95, alpha: 1)
     }
     
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 5
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Section: \(section)"
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chatMessages.count
     }
