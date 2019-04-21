@@ -27,23 +27,51 @@ class ViewController: UITableViewController {
     
     fileprivate let cellId = "id123"
 
-    let chatMessages = [
-        [
-            ChatMessage(text: "Here's my very first message", isIncoming: true, date: Date.dateFromCustomString(customString: "03/08/2018")),
-            ChatMessage(text: "I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap", isIncoming: true, date: Date.dateFromCustomString(customString: "03/08/2018"))
-        ],
-        [
-            ChatMessage(text: "Here's my very first message", isIncoming: false, date: Date.dateFromCustomString(customString: "04/03/2019")),
-            ChatMessage(text: "I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap", isIncoming: false, date: Date.dateFromCustomString(customString: "04/03/2019")),
-            ChatMessage(text: "Yo, dawg, Whaddup?", isIncoming: true, date: Date.dateFromCustomString(customString: "04/03/2019"))
-        ],
-        [
-            ChatMessage(text: "Here's my very first message", isIncoming: true, date: Date.dateFromCustomString(customString: "10/04/2019"))
-        ],
+//    let chatMessages = [
+//        [
+//            ChatMessage(text: "Here's my very first message", isIncoming: true, date: Date.dateFromCustomString(customString: "03/08/2018")),
+//            ChatMessage(text: "I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap", isIncoming: true, date: Date.dateFromCustomString(customString: "03/08/2018"))
+//        ],
+//        [
+//            ChatMessage(text: "Here's my very first message", isIncoming: false, date: Date.dateFromCustomString(customString: "04/03/2019")),
+//            ChatMessage(text: "I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap", isIncoming: false, date: Date.dateFromCustomString(customString: "04/03/2019")),
+//            ChatMessage(text: "Yo, dawg, Whaddup?", isIncoming: true, date: Date.dateFromCustomString(customString: "04/03/2019"))
+//        ],
+//        [
+//            ChatMessage(text: "Here's my very first message", isIncoming: true, date: Date.dateFromCustomString(customString: "10/04/2019"))
+//        ],
+//    ]
+    
+    let messagesFromServer = [
+        ChatMessage(text: "Here's my very first message", isIncoming: true, date: Date.dateFromCustomString(customString: "03/08/2018")),
+        ChatMessage(text: "I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap", isIncoming: true, date: Date.dateFromCustomString(customString: "03/08/2018")),
+        ChatMessage(text: "Here's my very first message", isIncoming: false, date: Date.dateFromCustomString(customString: "04/03/2019")),
+        ChatMessage(text: "I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap", isIncoming: false, date: Date.dateFromCustomString(customString: "04/03/2019")),
+        ChatMessage(text: "Yo, dawg, Whaddup?", isIncoming: true, date: Date.dateFromCustomString(customString: "04/03/2019")),
+        ChatMessage(text: "Here's my very first message", isIncoming: true, date: Date.dateFromCustomString(customString: "10/04/2019"))
     ]
+    
+    fileprivate func attemptToAssembleGroupedMessages() {
+        print("Attempt to group our message together based on the Date property")
+        
+        let groupedMessages = Dictionary(grouping: messagesFromServer) { (element) -> Date in
+            return element.date
+        }
+        
+        //provide a sorting for your keys somehow
+        let sortedKeys = groupedMessages.keys.sorted()
+        sortedKeys.forEach { (key) in
+            let values = groupedMessages[key]
+            chatMessages.append(values ?? [])
+        }
+    }
+    
+    var chatMessages = [[ChatMessage]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        attemptToAssembleGroupedMessages()
         
         navigationItem.title = "Messages"
         navigationController?.navigationBar.prefersLargeTitles = true
