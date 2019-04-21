@@ -101,11 +101,11 @@
 			children = (
 				3E2390B0226CACC800C2E767 /* AppDelegate.swift */,
 				3E2390B2226CACC800C2E767 /* ViewController.swift */,
+				3E2390E0226CB0EA00C2E767 /* ChatMessageCell.swift */,
 				3E2390B7226CACCA00C2E767 /* Assets.xcassets */,
 				3E2390B9226CACCA00C2E767 /* LaunchScreen.storyboard */,
 				3E2390DE226CAED800C2E767 /* Main.storyboard */,
 				3E2390BC226CACCA00C2E767 /* Info.plist */,
-				3E2390E0226CB0EA00C2E767 /* ChatMessageCell.swift */,
 			);
 			path = GroupedMessages;
 			sourceTree = "<group>";
