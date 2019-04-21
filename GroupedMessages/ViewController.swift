@@ -11,20 +11,37 @@ import UIKit
 struct ChatMessage {
     let text: String
     let isIncoming: Bool
+    let date: Date
+}
+
+extension Date {
+    static func dateFromCustomString(customString: String) -> Date {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        return dateFormatter.date(from: customString) ?? Date()
+    }
 }
 
 class ViewController: UITableViewController {
     
     fileprivate let cellId = "id123"
-    
-    let chatMessages = [
-        ChatMessage(text: "Here's my very first message", isIncoming: true),
-        ChatMessage(text: "I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap", isIncoming: true),
-        ChatMessage(text: "Here's my very first message", isIncoming: false),
-        ChatMessage(text: "I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap", isIncoming: false),
-        ChatMessage(text: "Yo, dawg, Whaddup?", isIncoming: true)
-    ]
 
+    let chatMessages = [
+        [
+            ChatMessage(text: "Here's my very first message", isIncoming: true, date: Date.dateFromCustomString(customString: "03/08/2018")),
+            ChatMessage(text: "I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap", isIncoming: true, date: Date.dateFromCustomString(customString: "03/08/2018"))
+        ],
+        [
+            ChatMessage(text: "Here's my very first message", isIncoming: false, date: Date.dateFromCustomString(customString: "04/03/2019")),
+            ChatMessage(text: "I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap.I'm going to message another long message that will word wrap", isIncoming: false, date: Date.dateFromCustomString(customString: "04/03/2019")),
+            ChatMessage(text: "Yo, dawg, Whaddup?", isIncoming: true, date: Date.dateFromCustomString(customString: "04/03/2019"))
+        ],
+        [
+            ChatMessage(text: "Here's my very first message", isIncoming: true, date: Date.dateFromCustomString(customString: "10/04/2019"))
+        ],
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,22 +54,28 @@ class ViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return chatMessages.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Section: \(section)"
+        if let firstMessageInSection = chatMessages[section].first {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+            let dateString = dateFormatter.string(from: firstMessageInSection.date)
+            return dateString
+        }
+        return "Section: \(Date())"
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return chatMessages.count
+        return chatMessages[section].count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ChatMessageCell
-        let chatMessage = chatMessages[indexPath.row]
-//        cell.messageLabel.text = chatMessage.text
-//        cell.isIncoming = chatMessage.isIncoming
+//        let chatMessage = chatMessages[indexPath.row]
+
+        let chatMessage = chatMessages[indexPath.section][indexPath.row]
         
         cell.chatMessage = chatMessage
         
